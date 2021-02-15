@@ -1,23 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Pokemon } from './pokemon.reducer';
+import { Observable } from 'rxjs';
+import { Pokemon } from './pokemon.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokemonService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   getRandomPokemonId(): number {
     return Math.floor(Math.random() * 151) + 1;
   }
 
   getAll(): Observable<Pokemon[]> {
-    return of([
-      {
-        id: 1,
-        name: 'Bulbasaur',
-      },
-    ]);
+    return this.http.get<Pokemon[]>('/assets/pokemon/data.json');
   }
 }

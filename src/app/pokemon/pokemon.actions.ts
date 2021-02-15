@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Pokemon } from './pokemon.reducer';
+import { Pokemon } from './pokemon.model';
 
 export const loadPokemon = createAction('[Pokemon] Load Pokemon');
 
@@ -10,5 +10,5 @@ export const loadPokemonSuccess = createAction(
 
 export const selectPokemon = createAction(
   '[Pokemon] Select Pokemon',
-  props<{ pokemonId: number }>()
+  props<{ pokemonId: number | null }>()
 );

@@ -1,11 +1,7 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
 import * as PokemonActions from './pokemon.actions';
-
-export interface Pokemon {
-  id: number;
-  name: string;
-}
+import { Pokemon } from './pokemon.model';
 
 export interface State extends EntityState<Pokemon> {
   selectedPokemonId: number | null;
@@ -31,3 +27,12 @@ export const pokemonReducer = createReducer(
 export function reducer(state: State | undefined, action: Action) {
   return pokemonReducer(state, action);
 }
+
+export const getSelectedPokemonId = (state: State) => state.selectedPokemonId;
+
+export const {
+  selectIds,
+  selectEntities,
+  selectAll,
+  selectTotal,
+} = adapter.getSelectors();
