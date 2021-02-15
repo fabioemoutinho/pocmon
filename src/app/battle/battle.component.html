@@ -1,0 +1,12 @@
+<div *ngIf="pokemon$ | async as pokemon" class="battle-container">
+  <img src="/assets/pokemon/{{pokemon.id}}.gif" width="150">
+  
+  <ng-container>
+    <p>Wild {{pokemon.name | uppercase}} appeared!</p>
+    <small>{{pokemon.description}}</small>
+    <p>
+      <button>FIGHT</button>
+      <button (click)="run()">RUN</button>
+    </p>
+  </ng-container>
+</div>
