@@ -5,7 +5,7 @@
     <p>Wild {{pokemon.name | uppercase}} appeared!</p>
     <small>{{pokemon.description}}</small>
     <p>
-      <button>FIGHT</button>
+      <button (click)="fight(pokemon.id)">FIGHT</button>
       <button (click)="run()">RUN</button>
     </p>
   </ng-container>

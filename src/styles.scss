@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/pokemon-font/css/pokemon-font.css";
+
+body,
+button {
+  font-family: "pokemon-font", monospace;
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+button {
+  background: none;
+  border: none;
+  margin-left: 20px;
+  position: relative;
+  &:hover {
+    cursor: pointer;
+    &::before {
+      content: "\25B7";
+      position: absolute;
+      left: -10px;
+      top: -1px;
+    }
+  }
+
+  &.selected {
+    &::before {
+      content: "\25B6";
+      position: absolute;
+      left: -10px;
+      top: -1px;
+    }
+  }
+}

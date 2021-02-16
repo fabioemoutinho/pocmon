@@ -1,0 +1,22 @@
+<div *ngIf="pokemon$ | async as pokemon" class="pokedex-container">
+  <ul>
+    <li *ngFor="let p of pokemon; let i = index">
+      <button (click)="select(i)" [class.selected]="i === selected">
+        <i [class.owned]="p.own > 0"></i>
+        <ng-container *ngIf="p.seen">{{ p.name | uppercase }}</ng-container>
+        <ng-container *ngIf="!p.seen">----------</ng-container>
+      </button>
+    </li>
+  </ul>
+  <aside *ngIf="selected !== undefined">
+    SEEN {{ pokemon[selected].seen }}
+    OWN {{ pokemon[selected].own }}
+
+    <ng-container *ngIf="pokemon[selected].seen">
+      <br>
+      <img src="/assets/pokemon/{{ pokemon[selected].id }}.gif" width="150">
+      <br>
+      {{ pokemon[selected].description }}
+    </ng-container>
+  </aside>
+</div>

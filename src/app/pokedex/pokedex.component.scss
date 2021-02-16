@@ -1,0 +1,30 @@
+.pokedex-container {
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  position: relative;
+
+  ul {
+    height: 400px;
+    overflow: auto;
+
+    li {
+      list-style-type: none;
+      padding-left: 24px;
+      position: relative;
+      text-align: left;
+
+      i.owned {
+        background: url("/assets/icons/pokeball.png") -16px 0 no-repeat;
+        height: 28px;
+        margin-left: -36px;
+        margin-top: -6px;
+        position: absolute;
+        top: 0;
+        transform: scale(1.2);
+        width: 16px;
+      }
+    }
+  }
+}
