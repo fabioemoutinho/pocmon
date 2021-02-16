@@ -14,6 +14,32 @@ export const initialState: State = adapter.getInitialState({
 
 export const pokemonReducer = createReducer(
   initialState,
+  on(PokemonActions.capturePokemon, (state, { pokemonId }) => {
+    if (pokemonId) {
+      return adapter.updateOne(
+        {
+          id: pokemonId,
+          changes: {
+            own: (state.entities[pokemonId] as Pokemon).own + 1,
+          },
+        },
+        { ...state, selectedPokemonId: null }
+      );
+    }
+    return state;
+  }),
+  on(PokemonActions.selectPokemon, (state, { pokemonId }) => {
+    if (pokemonId) {
+      return adapter.updateOne(
+        {
+          id: pokemonId,
+          changes: { seen: (state.entities[pokemonId] as Pokemon).seen + 1 },
+        },
+        state
+      );
+    }
+    return state;
+  }),
   on(PokemonActions.selectPokemon, (state, { pokemonId }) => ({
     ...state,
     selectedPokemonId: pokemonId,

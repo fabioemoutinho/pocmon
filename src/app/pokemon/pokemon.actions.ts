@@ -12,3 +12,8 @@ export const selectPokemon = createAction(
   '[Pokemon] Select Pokemon',
   props<{ pokemonId: number | null }>()
 );
+
+export const capturePokemon = createAction(
+  '[Pokemon] Capture Pokemon',
+  props<{ pokemonId: number | null }>()
+);

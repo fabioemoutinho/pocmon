@@ -10,9 +10,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { PokemonEffects } from './pokemon/pokemon.effects';
 import { reducer } from './pokemon/pokemon.reducer';
 import { BattleComponent } from './battle/battle.component';
+import { PokedexComponent } from './pokedex/pokedex.component';
 
 @NgModule({
-  declarations: [AppComponent, BattleComponent],
+  declarations: [AppComponent, BattleComponent, PokedexComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
