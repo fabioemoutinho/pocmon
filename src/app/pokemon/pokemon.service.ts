@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Pokemon } from './pokemon.model';
+import { Pokemon, PokemonResponse } from './pokemon.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,12 +15,17 @@ export class PokemonService {
   }
 
   getAll(): Observable<Pokemon[]> {
-    return this.http
-      .get<Pokemon[]>('/assets/pokemon/data.json')
-      .pipe(
-        map((response) =>
-          response.map((pokemon) => ({ ...pokemon, seen: 0, own: 0 }))
-        )
-      );
+    return this.http.get<PokemonResponse[]>('/assets/pokemon/data.json').pipe(
+      map((response) =>
+        response.map((pokemon) => ({
+          id: pokemon.id,
+          name: pokemon.name,
+          captureRate: pokemon.capture_rate,
+          description: pokemon.description,
+          seen: 0,
+          own: 0,
+        }))
+      )
+    );
   }
 }
