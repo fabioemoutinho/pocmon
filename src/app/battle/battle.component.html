@@ -1,12 +1,17 @@
 <div *ngIf="pokemon$ | async as pokemon" class="battle-container">
-  <img src="/assets/pokemon/{{pokemon.id}}.gif" width="150">
+  <div id="circle">
+    <img src="/assets/pokemon/{{pokemon.id}}.gif" width="150">
+    <div id="success-circle" [style.width.%]="successCircleSize" [style.height.%]="successCircleSize">
+    </div>
+    <div id="inner-circle" [style.width.%]="count" [style.height.%]="count"></div>
+    <button id="pokeball" (click)="throw(pokemon.id)" [@throwing]="throwing"></button>
+  </div>
   
   <ng-container>
     <p>Wild {{pokemon.name | uppercase}} appeared!</p>
-    <small>{{pokemon.description}}</small>
     <p>
-      <button (click)="fight(pokemon.id)">FIGHT</button>
       <button (click)="run()">RUN</button>
     </p>
   </ng-container>
+  <ng-container *ngIf="counter$(pokemon.captureRate) | async as counter"></ng-container>
 </div>

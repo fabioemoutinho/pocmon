@@ -1,0 +1,56 @@
+#circle {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  border: 1px solid grey;
+  padding: 50px;
+
+  #inner-circle {
+    position: absolute;
+    background: grey;
+    opacity: 0.3;
+    border-radius: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition-property: all;
+    transition-timing-function: ease-in-out;
+  }
+
+  #success-circle {
+    position: absolute;
+    background: green;
+    opacity: 0.3;
+    border-radius: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+#pokeball {
+  background: url("/assets/icons/pokeball.png") -16px -12px;
+  position: absolute;
+  height: 12px;
+  transform: scale(2);
+  width: 16px;
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  transition: 100ms ease-in-out;
+  outline: none;
+
+  &:hover {
+    transform: scale(4);
+
+    &::before {
+      content: unset;
+      position: unset;
+      left: unset;
+      top: unset;
+    }
+  }
+}
