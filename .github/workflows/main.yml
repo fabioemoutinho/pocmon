@@ -32,4 +32,4 @@ jobs:
       - name: npm run lint
         run: npm run lint
       - name: npm run build
-        run: npm run build:ci
+        run: npm run build -- --prod
