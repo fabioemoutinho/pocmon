@@ -6,6 +6,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { interval, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -48,29 +49,36 @@ export class BattleComponent {
 
   private tries = 0;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private snackbar: MatSnackBar) {}
 
-  throw(pokemonId: number): void {
+  throw(pokemonId: number, pokemonName: string): void {
     this.throwing = 'init';
     setTimeout(() => (this.throwing = 'throwing'));
     setTimeout(() => {
       this.throwing = '';
       this.tries += 1;
       if (this.count < this.successCircleSize) {
-        console.log('captured pokemon ' + pokemonId);
-        this.store.dispatch(capturePokemon({ pokemonId }));
+        this.catch(pokemonId, pokemonName);
       } else {
-        console.log(this.count);
         if (this.tries === 3) {
-          // notification pokemon X fled!
-          console.log('pokemon ' + pokemonId + ' ran away');
-          this.run();
+          this.flee(pokemonName);
         }
       }
     }, 500);
   }
 
   run(): void {
+    this.snackbar.open('Got away safely!');
+    this.store.dispatch(selectPokemon({ pokemonId: null }));
+  }
+
+  private catch(pokemonId: number, pokemonName: string): void {
+    this.snackbar.open(`${pokemonName.toLocaleUpperCase()} was caught!`);
+    this.store.dispatch(capturePokemon({ pokemonId }));
+  }
+
+  private flee(pokemonName: string): void {
+    this.snackbar.open(`Wild ${pokemonName.toLocaleUpperCase()} fled!`);
     this.store.dispatch(selectPokemon({ pokemonId: null }));
   }
 
