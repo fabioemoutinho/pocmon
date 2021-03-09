@@ -4,7 +4,7 @@
     <div id="success-circle" [style.width.%]="successCircleSize" [style.height.%]="successCircleSize">
     </div>
     <div id="inner-circle" [style.width.%]="count" [style.height.%]="count"></div>
-    <button id="pokeball" (click)="throw(pokemon.id)" [@throwing]="throwing"></button>
+    <button id="pokeball" (click)="throw(pokemon.id, pokemon.name)" [@throwing]="throwing"></button>
   </div>
   
   <ng-container>

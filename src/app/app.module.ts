@@ -12,6 +12,10 @@ import { PokemonEffects } from './pokemon/pokemon.effects';
 import { reducer } from './pokemon/pokemon.reducer';
 import { BattleComponent } from './battle/battle.component';
 import { PokedexComponent } from './pokedex/pokedex.component';
+import {
+  MatSnackBarModule,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [AppComponent, BattleComponent, PokedexComponent],
@@ -20,6 +24,7 @@ import { PokedexComponent } from './pokedex/pokedex.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    MatSnackBarModule,
     StoreModule.forRoot({ pokemon: reducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
@@ -27,7 +32,9 @@ import { PokedexComponent } from './pokedex/pokedex.component';
     }),
     EffectsModule.forRoot([PokemonEffects]),
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
