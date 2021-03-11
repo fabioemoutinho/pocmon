@@ -1,6 +1,8 @@
 <button (click)="pokedex()">Pokedex</button>
 <button (click)="battle()">Battle!</button>
 <router-outlet></router-outlet>
-<div id="map" [style.backgroundPosition]="getBackgroundPosition()">
-  <div id="character"></div>
-</div>
+<ng-container *ngIf="position$ | async as position">
+  <div id="map" [style.backgroundPosition]="getBackgroundPosition(position.x, position.y)">
+    <div id="character"></div>
+  </div>
+</ng-container>

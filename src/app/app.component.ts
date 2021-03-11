@@ -5,6 +5,8 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { move } from './map/map.actions';
+import { selectCharacterPosition } from './map/map.selectors';
 import { selectPokemon } from './pokemon/pokemon.actions';
 import { PokemonService } from './pokemon/pokemon.service';
 
@@ -15,8 +17,7 @@ import { PokemonService } from './pokemon/pokemon.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  currentPositionX = 16;
-  currentPositionY = 33;
+  readonly position$ = this.store.select(selectCharacterPosition);
 
   constructor(
     private router: Router,
@@ -30,54 +31,28 @@ export class AppComponent {
       case 'Down': // IE/Edge specific value
       case 'ArrowDown':
       case 's':
-        this.moveDown();
+        this.store.dispatch(move({ direction: 'DOWN' }));
         break;
       case 'Up': // IE/Edge specific value
       case 'ArrowUp':
       case 'w':
-        this.moveUp();
+        this.store.dispatch(move({ direction: 'UP' }));
         break;
       case 'Left': // IE/Edge specific value
       case 'ArrowLeft':
       case 'a':
-        this.moveLeft();
+        this.store.dispatch(move({ direction: 'LEFT' }));
         break;
       case 'Right': // IE/Edge specific value
       case 'ArrowRight':
       case 'd':
-        this.moveRight();
+        this.store.dispatch(move({ direction: 'RIGHT' }));
         break;
     }
   }
 
-  getBackgroundPosition(): string {
-    return `${-this.currentPositionX * 16 + 64}px ${
-      -this.currentPositionY * 16 + 64
-    }px`;
-  }
-
-  moveLeft(): void {
-    if (this.currentPositionX > 0) {
-      this.currentPositionX -= 1;
-    }
-  }
-
-  moveRight(): void {
-    if (this.currentPositionX < 33) {
-      this.currentPositionX += 1;
-    }
-  }
-
-  moveUp(): void {
-    if (this.currentPositionY > 0) {
-      this.currentPositionY -= 1;
-    }
-  }
-
-  moveDown(): void {
-    if (this.currentPositionY < 47) {
-      this.currentPositionY += 1;
-    }
+  getBackgroundPosition(x: number, y: number): string {
+    return `${-x * 16 + 64}px ${-y * 16 + 64}px`;
   }
 
   battle(): void {
