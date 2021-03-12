@@ -1,8 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { selectPokemon } from './pokemon/pokemon.actions';
-import { PokemonService } from './pokemon/pokemon.service';
 
 @Component({
   selector: 'app-root',
@@ -10,20 +7,10 @@ import { PokemonService } from './pokemon/pokemon.service';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  constructor(
-    private router: Router,
-    private store: Store,
-    private pokemonService: PokemonService
-  ) {}
+export class AppComponent implements OnInit {
+  constructor(private router: Router) {}
 
-  battle(): void {
-    this.store.dispatch(
-      selectPokemon({ pokemonId: this.pokemonService.getRandomPokemonId() })
-    );
-  }
-
-  pokedex(): void {
-    this.router.navigate(['pokedex']);
+  ngOnInit(): void {
+    this.router.navigate(['map']);
   }
 }

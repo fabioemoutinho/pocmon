@@ -15,7 +15,7 @@ export class PokemonService {
   }
 
   getAll(): Observable<Pokemon[]> {
-    return this.http.get<PokemonResponse[]>('/assets/pokemon/data.json').pipe(
+    return this.http.get<PokemonResponse[]>('/assets/data/pokemon.json').pipe(
       map((response) =>
         response.map((pokemon) => ({
           id: pokemon.id,

@@ -8,9 +8,12 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
+import { MapEffects } from './map/map.effects';
+import { reducer as mapReducer } from './map/map.reducer';
 import { PokemonEffects } from './pokemon/pokemon.effects';
-import { reducer } from './pokemon/pokemon.reducer';
+import { reducer as pokemonReducer } from './pokemon/pokemon.reducer';
 import { BattleComponent } from './battle/battle.component';
+import { MapComponent } from './map/map.component';
 import { PokedexComponent } from './pokedex/pokedex.component';
 import {
   MatSnackBarModule,
@@ -18,19 +21,19 @@ import {
 } from '@angular/material/snack-bar';
 
 @NgModule({
-  declarations: [AppComponent, BattleComponent, PokedexComponent],
+  declarations: [AppComponent, BattleComponent, MapComponent, PokedexComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     MatSnackBarModule,
-    StoreModule.forRoot({ pokemon: reducer }),
+    StoreModule.forRoot({ map: mapReducer, pokemon: pokemonReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([PokemonEffects]),
+    EffectsModule.forRoot([MapEffects, PokemonEffects]),
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } },
