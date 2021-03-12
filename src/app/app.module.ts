@@ -13,6 +13,7 @@ import { reducer as mapReducer } from './map/map.reducer';
 import { PokemonEffects } from './pokemon/pokemon.effects';
 import { reducer as pokemonReducer } from './pokemon/pokemon.reducer';
 import { BattleComponent } from './battle/battle.component';
+import { MapComponent } from './map/map.component';
 import { PokedexComponent } from './pokedex/pokedex.component';
 import {
   MatSnackBarModule,
@@ -20,7 +21,7 @@ import {
 } from '@angular/material/snack-bar';
 
 @NgModule({
-  declarations: [AppComponent, BattleComponent, PokedexComponent],
+  declarations: [AppComponent, BattleComponent, MapComponent, PokedexComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

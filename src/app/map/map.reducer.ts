@@ -4,6 +4,10 @@ import { Coordinates, Tiles } from './map.model';
 
 export interface State {
   coordinates: Coordinates;
+  previousCoordinates?: Coordinates;
+  stepsToBattle: number;
+  currentTile?: number;
+  previousTile?: number;
   tiles: Tiles;
 }
 
@@ -12,6 +16,7 @@ export const initialState: State = {
     x: 16,
     y: 33,
   },
+  stepsToBattle: 0,
   tiles: [],
 };
 
@@ -21,6 +26,17 @@ export const mapReducer = createReducer(
   on(MapActions.moveSuccess, (state, { x, y }) => ({
     ...state,
     coordinates: { x, y },
+    previousCoordinates: { x: state.coordinates.x, y: state.coordinates.y },
+    currentTile: state.tiles[y][x],
+    previousTile: state.currentTile,
+  })),
+  on(MapActions.decrementStepsToBattleSuccess, (state) => ({
+    ...state,
+    stepsToBattle: state.stepsToBattle - 1,
+  })),
+  on(MapActions.resetStepsToBattleSuccess, (state, { steps }) => ({
+    ...state,
+    stepsToBattle: steps,
   }))
 );
 

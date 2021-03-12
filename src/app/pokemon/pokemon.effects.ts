@@ -4,6 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { EMPTY } from 'rxjs';
 import { map, mergeMap, catchError, tap } from 'rxjs/operators';
+import { resetStepsToBattle } from '../map/map.actions';
 import * as PokemonActions from './pokemon.actions';
 import { PokemonService } from './pokemon.service';
 
@@ -21,17 +22,25 @@ export class PokemonEffects {
     )
   );
 
-  selectPokemon$ = createEffect(
+  selectPokemon$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PokemonActions.selectPokemon),
+      map((props) => {
+        if (props.pokemonId) {
+          this.router.navigate(['battle']);
+        } else {
+          this.router.navigate(['map']);
+        }
+        return resetStepsToBattle();
+      })
+    )
+  );
+
+  capturePokemon$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(PokemonActions.selectPokemon),
-        tap((props) => {
-          if (props.pokemonId) {
-            this.router.navigate(['battle']);
-          } else {
-            this.router.navigate(['']);
-          }
-        })
+        ofType(PokemonActions.capturePokemon),
+        tap((_props) => this.router.navigate(['map']))
       ),
     { dispatch: false }
   );

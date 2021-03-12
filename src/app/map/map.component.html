@@ -1,0 +1,8 @@
+<button (click)="pokedex()">Pokedex</button>
+<div
+  id="map"
+  *ngIf="position$ | async as position"
+  [style.backgroundPosition]="getBackgroundPosition(position.x, position.y)"
+>
+  <div id="character"></div>
+</div>
