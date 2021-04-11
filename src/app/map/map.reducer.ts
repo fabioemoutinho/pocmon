@@ -1,10 +1,11 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as MapActions from './map.actions';
-import { Coordinates, Tiles } from './map.model';
+import { Coordinates, Direction, Tiles } from './map.model';
 
 export interface State {
   coordinates: Coordinates;
   previousCoordinates?: Coordinates;
+  direction: Direction;
   stepsToBattle: number;
   currentTile?: number;
   previousTile?: number;
@@ -16,6 +17,7 @@ export const initialState: State = {
     x: 16,
     y: 33,
   },
+  direction: 'DOWN',
   stepsToBattle: 0,
   tiles: [],
 };
@@ -23,6 +25,10 @@ export const initialState: State = {
 export const mapReducer = createReducer(
   initialState,
   on(MapActions.loadMapSuccess, (state, { tiles }) => ({ ...state, tiles })),
+  on(MapActions.move, (state, { direction }) => ({
+    ...state,
+    direction,
+  })),
   on(MapActions.moveSuccess, (state, { x, y }) => ({
     ...state,
     coordinates: { x, y },

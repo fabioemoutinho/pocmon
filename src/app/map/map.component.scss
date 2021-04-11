@@ -3,14 +3,75 @@
   height: 160px;
   background: #000 url("/assets/map.png") no-repeat;
   background-position: 0 0;
+  transition: background-position 0.3s;
   position: relative;
 
   #character {
     position: absolute;
     width: 16px;
     height: 16px;
-    background-color: red;
+    background: url("/assets/user.png");
+    background-position: 0 0;
+    background-size: 64px;
     left: 64px;
     top: 64px;
+
+    &.UP {
+      background-position: 0 (-3 * 16px);
+      &.moving {
+        animation: top 0.85s steps(4, start) infinite;
+      }
+    }
+    &.DOWN {
+      background-position: 0 0;
+      &.moving {
+        animation: bottom 0.85s steps(4, start) infinite;
+      }
+    }
+    &.LEFT {
+      background-position: 0 (-1 * 16px);
+      &.moving {
+        animation: left 0.85s steps(4, start) infinite;
+      }
+    }
+    &.RIGHT {
+      background-position: 0 (-2 * 16px);
+      &.moving {
+        animation: right 0.85s steps(4, start) infinite;
+      }
+    }
+  }
+}
+
+@keyframes top {
+  from {
+    background-position: 0 (-3 * 16px);
+  }
+  to {
+    background-position: (-4 * 16px) (-3 * 16px);
+  }
+}
+@keyframes bottom {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: (-4 * 16px) 0;
+  }
+}
+@keyframes left {
+  from {
+    background-position: 0 (-1 * 16px);
+  }
+  to {
+    background-position: -4 * 16px (-1 * 16px);
+  }
+}
+@keyframes right {
+  from {
+    background-position: 0 (-2 * 16px);
+  }
+  to {
+    background-position: (-4 * 16px) (-2 * 16px);
   }
 }

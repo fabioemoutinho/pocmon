@@ -2,11 +2,18 @@ import {
   ChangeDetectionStrategy,
   Component,
   HostListener,
+  OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { BehaviorSubject, Subject, timer } from 'rxjs';
+import { distinct, map, takeUntil, takeWhile } from 'rxjs/operators';
 import { move } from './map.actions';
-import { selectCharacterPosition } from './map.selectors';
+import { Direction } from './map.model';
+import {
+  selectCharacterDirection,
+  selectCharacterPosition,
+} from './map.selectors';
 
 @Component({
   selector: 'app-map',
@@ -14,33 +21,83 @@ import { selectCharacterPosition } from './map.selectors';
   styleUrls: ['./map.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MapComponent {
+export class MapComponent implements OnDestroy {
   readonly position$ = this.store.select(selectCharacterPosition);
+  readonly direction$ = this.store.select(selectCharacterDirection);
+  readonly walking$ = timer(0, 200);
+  readonly movingSubject = new BehaviorSubject<boolean>(false);
+  readonly moving$ = this.movingSubject.asObservable();
+  readonly destroyedSubject = new Subject<boolean>();
+  readonly keyEventsSubject = new BehaviorSubject<KeyboardEvent | null>(null);
+  readonly keyEvents$ = this.keyEventsSubject.asObservable().pipe(
+    distinct(),
+    map((event) => {
+      if (event?.type === 'keydown') {
+        this.startMoving(event);
+      }
+      if (event?.type === 'keyup') {
+        this.stopMoving(event);
+      }
+    })
+  );
+  private currentKey?: string;
 
   constructor(private router: Router, private store: Store) {}
 
   @HostListener('document:keydown', ['$event'])
-  move(event: KeyboardEvent) {
+  onKeydown(event: KeyboardEvent) {
+    if (!this.movingSubject.value) {
+      this.keyEventsSubject.next(event);
+    }
+  }
+
+  @HostListener('document:keyup', ['$event'])
+  onKeyup(event: KeyboardEvent) {
+    this.keyEventsSubject.next(event);
+  }
+
+  startMoving(event: KeyboardEvent) {
     switch (event.key) {
       case 'Down': // IE/Edge specific value
       case 'ArrowDown':
       case 's':
-        this.store.dispatch(move({ direction: 'DOWN' }));
+        this.move(event.key, 'DOWN');
         break;
       case 'Up': // IE/Edge specific value
       case 'ArrowUp':
       case 'w':
-        this.store.dispatch(move({ direction: 'UP' }));
+        this.move(event.key, 'UP');
         break;
       case 'Left': // IE/Edge specific value
       case 'ArrowLeft':
       case 'a':
-        this.store.dispatch(move({ direction: 'LEFT' }));
+        this.move(event.key, 'LEFT');
         break;
       case 'Right': // IE/Edge specific value
       case 'ArrowRight':
       case 'd':
-        this.store.dispatch(move({ direction: 'RIGHT' }));
+        this.move(event.key, 'RIGHT');
+        break;
+    }
+  }
+
+  stopMoving(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'Down': // IE/Edge specific value
+      case 'ArrowDown':
+      case 's':
+      case 'Up': // IE/Edge specific value
+      case 'ArrowUp':
+      case 'w':
+      case 'Left': // IE/Edge specific value
+      case 'ArrowLeft':
+      case 'a':
+      case 'Right': // IE/Edge specific value
+      case 'ArrowRight':
+      case 'd':
+        if (event.key === this.currentKey) {
+          this.currentKey = undefined;
+        }
         break;
     }
   }
@@ -51,5 +108,38 @@ export class MapComponent {
 
   getBackgroundPosition(x: number, y: number): string {
     return `${-x * 16 + 64}px ${-y * 16 + 64}px`;
+  }
+
+  ngOnDestroy() {
+    this.destroyedSubject.next(true);
+  }
+
+  private move(key: string, direction: Direction): void {
+    if (!this.currentKey) {
+      let complete = false;
+      this.currentKey = key;
+      this.movingSubject.next(true);
+      this.walking$
+        .pipe(
+          takeUntil(this.destroyedSubject.asObservable()),
+          takeWhile(() => !complete, true)
+        )
+        .subscribe(
+          () => {
+            if (this.currentKey === key) {
+              this.store.dispatch(move({ direction }));
+            }
+            if (!this.currentKey) {
+              complete = true;
+            }
+          },
+          (_error) => {},
+          () => {
+            if (!this.currentKey) {
+              this.movingSubject.next(false);
+            }
+          }
+        );
+    }
   }
 }
