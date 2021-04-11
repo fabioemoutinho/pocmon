@@ -6,3 +6,7 @@ export const selectCharacterPosition = createSelector(
   selectMapState,
   (state) => state.coordinates
 );
+export const selectCharacterDirection = createSelector(
+  selectMapState,
+  (state) => state.direction
+);

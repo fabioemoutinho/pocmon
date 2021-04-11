@@ -4,5 +4,6 @@
   *ngIf="position$ | async as position"
   [style.backgroundPosition]="getBackgroundPosition(position.x, position.y)"
 >
-  <div id="character"></div>
+  <div id="character" *ngrxLet="direction$ as direction" [ngClass]="direction" [class.moving]="moving$ | async"></div>
+  <ng-container *ngIf="keyEvents$ | async"></ng-container>
 </div>

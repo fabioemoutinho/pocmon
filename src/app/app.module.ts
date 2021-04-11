@@ -1,13 +1,18 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import {
+  MatSnackBarModule,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { ReactiveComponentModule } from '@ngrx/component';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-import { EffectsModule } from '@ngrx/effects';
 import { MapEffects } from './map/map.effects';
 import { reducer as mapReducer } from './map/map.reducer';
 import { PokemonEffects } from './pokemon/pokemon.effects';
@@ -15,10 +20,6 @@ import { reducer as pokemonReducer } from './pokemon/pokemon.reducer';
 import { BattleComponent } from './battle/battle.component';
 import { MapComponent } from './map/map.component';
 import { PokedexComponent } from './pokedex/pokedex.component';
-import {
-  MatSnackBarModule,
-  MAT_SNACK_BAR_DEFAULT_OPTIONS,
-} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [AppComponent, BattleComponent, MapComponent, PokedexComponent],
@@ -28,6 +29,7 @@ import {
     AppRoutingModule,
     HttpClientModule,
     MatSnackBarModule,
+    ReactiveComponentModule,
     StoreModule.forRoot({ map: mapReducer, pokemon: pokemonReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
