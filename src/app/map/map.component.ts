@@ -4,7 +4,6 @@ import {
   HostListener,
   OnDestroy,
 } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Subject, timer } from 'rxjs';
 import { distinct, map, takeUntil, takeWhile } from 'rxjs/operators';
@@ -42,7 +41,7 @@ export class MapComponent implements OnDestroy {
   );
   private currentKey?: string;
 
-  constructor(private router: Router, private store: Store) {}
+  constructor(private store: Store) {}
 
   @HostListener('document:keydown', ['$event'])
   onKeydown(event: KeyboardEvent) {
@@ -102,12 +101,11 @@ export class MapComponent implements OnDestroy {
     }
   }
 
-  pokedex(): void {
-    this.router.navigate(['pokedex']);
-  }
-
   getBackgroundPosition(x: number, y: number): string {
-    return `${-x * 16 + 64}px ${-y * 16 + 64}px`;
+    return `
+      calc(var(--SCREEN-SIZE) * 0.1 * ${-x} + var(--SCREEN-SIZE) * 0.4)
+      calc(var(--SCREEN-SIZE) * 0.1 * ${-y} + var(--SCREEN-SIZE) * 0.4)
+    `;
   }
 
   ngOnDestroy() {

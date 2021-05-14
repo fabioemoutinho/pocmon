@@ -1,23 +1,25 @@
 #map {
-  width: 160px;
-  height: 160px;
+  width: var(--SCREEN-SIZE);
+  padding-top: 100%;
   background: #000 url("/assets/map.png") no-repeat;
   background-position: 0 0;
+  background-size: calc(var(--SCREEN-SIZE) * 3.4) calc(var(--SCREEN-SIZE) * 4.8);
   transition: background-position 0.3s;
   position: relative;
+  box-shadow: inset 3px 3px rgb(0 0 0 / 15%);
 
   #character {
     position: absolute;
-    width: 16px;
-    height: 16px;
+    width: 10%;
+    height: 10%;
     background: url("/assets/user.png");
     background-position: 0 0;
-    background-size: 64px;
-    left: 64px;
-    top: 64px;
+    background-size: calc(var(--SCREEN-SIZE) * 0.4);
+    left: 40%;
+    top: 40%;
 
     &.UP {
-      background-position: 0 (-3 * 16px);
+      background-position: 0 calc(var(--SCREEN-SIZE) * -0.3);
       &.moving {
         animation: top 0.85s steps(4, start) infinite;
       }
@@ -29,13 +31,13 @@
       }
     }
     &.LEFT {
-      background-position: 0 (-1 * 16px);
+      background-position: 0 calc(var(--SCREEN-SIZE) * -0.1);
       &.moving {
         animation: left 0.85s steps(4, start) infinite;
       }
     }
     &.RIGHT {
-      background-position: 0 (-2 * 16px);
+      background-position: 0 calc(var(--SCREEN-SIZE) * -0.2);
       &.moving {
         animation: right 0.85s steps(4, start) infinite;
       }
@@ -45,10 +47,11 @@
 
 @keyframes top {
   from {
-    background-position: 0 (-3 * 16px);
+    background-position: 0 calc(var(--SCREEN-SIZE) * -0.3);
   }
   to {
-    background-position: (-4 * 16px) (-3 * 16px);
+    background-position: calc(var(--SCREEN-SIZE) * -0.4)
+      calc(var(--SCREEN-SIZE) * -0.3);
   }
 }
 @keyframes bottom {
@@ -56,22 +59,24 @@
     background-position: 0 0;
   }
   to {
-    background-position: (-4 * 16px) 0;
+    background-position: calc(var(--SCREEN-SIZE) * -0.4) 0;
   }
 }
 @keyframes left {
   from {
-    background-position: 0 (-1 * 16px);
+    background-position: 0 calc(var(--SCREEN-SIZE) * -0.1);
   }
   to {
-    background-position: -4 * 16px (-1 * 16px);
+    background-position: calc(var(--SCREEN-SIZE) * -0.4)
+      calc(var(--SCREEN-SIZE) * -0.1);
   }
 }
 @keyframes right {
   from {
-    background-position: 0 (-2 * 16px);
+    background-position: 0 calc(var(--SCREEN-SIZE) * -0.2);
   }
   to {
-    background-position: (-4 * 16px) (-2 * 16px);
+    background-position: calc(var(--SCREEN-SIZE) * -0.4)
+      calc(var(--SCREEN-SIZE) * -0.2);
   }
 }
