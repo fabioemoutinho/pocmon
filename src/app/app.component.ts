@@ -13,4 +13,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.router.navigate(['map']);
   }
+
+  pokedex(): void {
+    this.router.navigate(['pokedex']);
+  }
 }

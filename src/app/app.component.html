@@ -1,1 +1,12 @@
-<router-outlet></router-outlet>
+<div id="gameboy-wrapper">
+  <div id="gameboy">
+    <div id="screen-wrapper">
+      <div id="screen">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <div id="controls">
+      <button (click)="pokedex()">Pokedex</button>
+    </div>
+  </div>
+</div>
