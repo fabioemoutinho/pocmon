@@ -4,16 +4,6 @@
   height: 100%;
   box-sizing: border-box;
 
-  @media (min-width: 1025px) {
-    --HEIGHT: 70vh;
-  }
-  @media (max-width: 1024px) and (min-aspect-ratio: 5/8) {
-    --HEIGHT: calc(100vh - 30px);
-  }
-  @media (max-width: 1024px) and (max-aspect-ratio: 5/8) {
-    --HEIGHT: calc((100vw - 30px) * 1.6);
-  }
-
   #gameboy {
     background: #eee;
     border-radius: 10px 10px 60px 10px;
@@ -22,7 +12,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    --SCREEN-SIZE: calc((var(--HEIGHT) * 0.625) * 0.55);
     width: calc((var(--HEIGHT) * 0.625));
     height: var(--HEIGHT);
 

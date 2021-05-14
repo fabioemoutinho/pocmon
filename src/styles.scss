@@ -8,6 +8,18 @@ body {
 }
 body {
   margin: 0;
+
+  @media (min-width: 1025px) {
+    --HEIGHT: 70vh;
+  }
+  @media (max-width: 1024px) and (min-aspect-ratio: 5/8) {
+    --HEIGHT: calc(100vh - 30px);
+  }
+  @media (max-width: 1024px) and (max-aspect-ratio: 5/8) {
+    --HEIGHT: calc((100vw - 30px) * 1.6);
+  }
+
+  --SCREEN-SIZE: calc((var(--HEIGHT) * 0.625) * 0.55);
 }
 
 body,
@@ -45,10 +57,23 @@ button {
   }
 }
 
+.cdk-overlay-container {
+  position: absolute;
+  top: calc(var(--SCREEN-SIZE) - 10px);
+  width: 100%;
+}
+.mat-snack-bar-container {
+  margin: 0 auto !important;
+}
 .mat-simple-snackbar {
   background-color: #fff;
   border-radius: 4px;
-  box-shadow: 0 0 0 2px #000, 0 0 0 6px #fff, 0 0 0 9px #000, 0 4px 0 7px #000,
-    inset 0 3px 0 0 #000;
-  padding: 10px 20px;
+  box-shadow: 0 0 0 1px #000, 0 0 0 3px #fff, 0 0 0 4.5px #000,
+    0 2px 0 3.5px #000, inset 0 1.5px 0 0 #000;
+  box-sizing: border-box;
+  padding: 4px;
+  width: calc(var(--SCREEN-SIZE) - 16px);
+  margin: 0 auto;
+  font-size: 0.6em;
+  line-height: 0.8em;
 }
