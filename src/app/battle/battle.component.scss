@@ -1,56 +1,80 @@
-#circle {
-  position: relative;
-  width: 150px;
-  height: 150px;
-  border-radius: 100%;
-  border: 1px solid grey;
-  padding: 50px;
+.battle-container {
+  width: var(--SCREEN-SIZE);
+  height: var(--SCREEN-SIZE);
+  background-color: #fff;
+  box-shadow: inset 3px 3px rgb(0 0 0 / 15%);
 
-  #inner-circle {
-    position: absolute;
-    background: grey;
-    opacity: 0.3;
+  #circle {
+    position: relative;
+    width: calc(var(--SCREEN-SIZE) / 3);
     border-radius: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition-property: all;
-    transition-timing-function: ease-in-out;
+    padding: 50px;
+    margin: 0 auto;
+
+    img {
+      width: calc(var(--SCREEN-SIZE) / 3);
+    }
+
+    #inner-circle {
+      position: absolute;
+      background: grey;
+      opacity: 0.3;
+      border-radius: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition-property: all;
+      transition-timing-function: ease-in-out;
+    }
+
+    #success-circle {
+      position: absolute;
+      background: green;
+      opacity: 0.3;
+      border-radius: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 
-  #success-circle {
+  #pokeball {
+    background: url("/assets/icons/pokeball.png") -16px -12px;
     position: absolute;
-    background: green;
-    opacity: 0.3;
-    border-radius: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    height: 12px;
+    transform: scale(2);
+    width: 16px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    transition: 100ms ease-in-out;
+    outline: none;
+
+    &:hover {
+      transform: scale(4);
+
+      &::before {
+        content: unset;
+        position: unset;
+        left: unset;
+        top: unset;
+      }
+    }
   }
-}
 
-#pokeball {
-  background: url("/assets/icons/pokeball.png") -16px -12px;
-  position: absolute;
-  height: 12px;
-  transform: scale(2);
-  width: 16px;
-  bottom: -20px;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  transition: 100ms ease-in-out;
-  outline: none;
+  p {
+    font-size: 0.6em;
+    padding: 0 1em;
+    margin: 0;
 
-  &:hover {
-    transform: scale(4);
+    &:first {
+      margin-top: 20px;
+    }
 
-    &::before {
-      content: unset;
-      position: unset;
-      left: unset;
-      top: unset;
+    button {
+      font-size: 1em;
     }
   }
 }

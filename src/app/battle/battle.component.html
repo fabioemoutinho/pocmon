@@ -1,6 +1,6 @@
 <div *ngIf="pokemon$ | async as pokemon" class="battle-container">
   <div id="circle">
-    <img src="/assets/pokemon/{{pokemon.id}}.gif" width="150">
+    <img src="/assets/pokemon/{{pokemon.id}}.gif">
     <div id="success-circle" [style.width.%]="successCircleSize" [style.height.%]="successCircleSize">
     </div>
     <div id="inner-circle" [style.width.%]="count" [style.height.%]="count"></div>

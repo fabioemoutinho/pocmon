@@ -30,7 +30,7 @@ import { selectCurrentPokemon } from '../pokemon/pokemon.selectors';
       state(
         'throwing',
         style({
-          bottom: '120px',
+          bottom: 'calc((var(--SCREEN-SIZE) / 6) + 50px)',
           transform: 'scale(2) rotate(360deg)',
         })
       ),
