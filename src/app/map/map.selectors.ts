@@ -10,3 +10,7 @@ export const selectCharacterDirection = createSelector(
   selectMapState,
   (state) => state.direction
 );
+export const selectMoving = createSelector(
+  selectMapState,
+  (state) => state.moving
+);

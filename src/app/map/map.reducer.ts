@@ -9,6 +9,7 @@ export interface State {
   stepsToBattle: number;
   currentTile?: number;
   previousTile?: number;
+  moving: boolean;
   tiles: Tiles;
 }
 
@@ -19,6 +20,7 @@ export const initialState: State = {
   },
   direction: 'DOWN',
   stepsToBattle: 0,
+  moving: false,
   tiles: [],
 };
 
@@ -28,6 +30,7 @@ export const mapReducer = createReducer(
   on(MapActions.move, (state, { direction }) => ({
     ...state,
     direction,
+    moving: true,
   })),
   on(MapActions.moveSuccess, (state, { x, y }) => ({
     ...state,
@@ -35,6 +38,10 @@ export const mapReducer = createReducer(
     previousCoordinates: { x: state.coordinates.x, y: state.coordinates.y },
     currentTile: state.tiles[y][x],
     previousTile: state.currentTile,
+  })),
+  on(MapActions.stopMoving, (state) => ({
+    ...state,
+    moving: false,
   })),
   on(MapActions.decrementStepsToBattleSuccess, (state) => ({
     ...state,
