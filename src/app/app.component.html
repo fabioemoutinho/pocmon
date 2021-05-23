@@ -16,6 +16,8 @@
             (mousedown)="onMousedown('UP')"
             (mouseup)="onMouseup('UP')"
             (mouseleave)="onMouseup('UP')"
+            (touchstart)="onMousedown('UP')"
+            (touchend)="onMouseup('UP')"
             draggable="false"
           ></button>
           <div></div>
@@ -25,6 +27,8 @@
             (mousedown)="onMousedown('LEFT')"
             (mouseup)="onMouseup('LEFT')"
             (mouseleave)="onMouseup('LEFT')"
+            (touchstart)="onMousedown('LEFT')"
+            (touchend)="onMouseup('LEFT')"
             draggable="false"
           ></button>
           <div id="arrow-center"></div>
@@ -34,6 +38,8 @@
             (mousedown)="onMousedown('RIGHT')"
             (mouseup)="onMouseup('RIGHT')"
             (mouseleave)="onMouseup('RIGHT')"
+            (touchstart)="onMousedown('RIGHT')"
+            (touchend)="onMouseup('RIGHT')"
             draggable="false"
           ></button>
           <div></div>
@@ -43,6 +49,8 @@
             (mousedown)="onMousedown('DOWN')"
             (mouseup)="onMouseup('DOWN')"
             (mouseleave)="onMouseup('DOWN')"
+            (touchstart)="onMousedown('DOWN')"
+            (touchend)="onMouseup('DOWN')"
             draggable="false"
           ></button>
           <div></div>
