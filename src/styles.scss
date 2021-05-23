@@ -37,8 +37,12 @@ button {
   border: none;
   margin-left: 20px;
   position: relative;
+
   &:hover {
     cursor: pointer;
+  }
+
+  &.default:hover {
     &::before {
       content: "\25B7";
       position: absolute;
@@ -47,7 +51,7 @@ button {
     }
   }
 
-  &.selected {
+  &.default.selected {
     &::before {
       content: "\25B6";
       position: absolute;

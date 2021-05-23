@@ -11,6 +11,12 @@ import { distinct, map, takeWhile } from 'rxjs/operators';
 import { move, stopMoving } from './map/map.actions';
 import { Direction } from './map/map.model';
 
+type TrackedEvents = 'keydown' | 'keyup' | 'mousedown' | 'mouseup';
+interface DirectionEvent {
+  type: TrackedEvents;
+  direction: Direction;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,15 +25,17 @@ import { Direction } from './map/map.model';
 })
 export class AppComponent implements OnInit {
   readonly walking$ = timer(0, 200);
-  readonly keyEventsSubject = new BehaviorSubject<KeyboardEvent | null>(null);
-  readonly keyEvents$ = this.keyEventsSubject.asObservable().pipe(
+  readonly directionEventsSubject = new BehaviorSubject<DirectionEvent | null>(
+    null
+  );
+  readonly directionEvents$ = this.directionEventsSubject.asObservable().pipe(
     distinct(),
     map((event) => {
-      if (event?.type === 'keydown') {
-        this.startMoving(event);
+      if (event?.type.includes('down')) {
+        this.move(event.direction);
       }
-      if (event?.type === 'keyup') {
-        this.stopMoving(event);
+      if (event?.type.includes('up')) {
+        this.removeDirection(event.direction);
       }
     })
   );
@@ -37,29 +45,8 @@ export class AppComponent implements OnInit {
   constructor(private router: Router, private store: Store) {}
 
   @HostListener('document:keydown', ['$event'])
-  onKeydown(event: KeyboardEvent) {
-    this.keyEventsSubject.next(event);
-  }
-
   @HostListener('document:keyup', ['$event'])
-  onKeyup(event: KeyboardEvent) {
-    this.keyEventsSubject.next(event);
-  }
-
-  ngOnInit(): void {
-    this.router.navigate(['map']);
-  }
-
-  pokedex(): void {
-    this.router.navigate(['pokedex']);
-  }
-
-  up(): void {}
-  down(): void {}
-  left(): void {}
-  right(): void {}
-
-  startMoving(event: KeyboardEvent) {
+  onKeyEvents(event: KeyboardEvent) {
     const events = [
       'Down',
       'ArrowDown',
@@ -75,29 +62,32 @@ export class AppComponent implements OnInit {
       'd',
     ];
     if (events.includes(event.key)) {
-      this.move(this.getDirectionFromKey(event.key));
+      this.directionEventsSubject.next({
+        type: event.type as TrackedEvents,
+        direction: this.getDirectionFromKey(event.key),
+      });
     }
   }
 
-  stopMoving(event: KeyboardEvent) {
-    switch (event.key) {
-      case 'Down': // IE/Edge specific value
-      case 'ArrowDown':
-      case 's':
-      case 'Up': // IE/Edge specific value
-      case 'ArrowUp':
-      case 'w':
-      case 'Left': // IE/Edge specific value
-      case 'ArrowLeft':
-      case 'a':
-      case 'Right': // IE/Edge specific value
-      case 'ArrowRight':
-      case 'd':
-        this.direction = this.direction.filter(
-          (direction) => direction !== this.getDirectionFromKey(event.key)
-        );
-        break;
-    }
+  ngOnInit(): void {
+    this.router.navigate(['map']);
+  }
+
+  pokedex(): void {
+    this.router.navigate(['pokedex']);
+  }
+
+  onMouseup(direction: Direction): void {
+    this.directionEventsSubject.next({ type: 'mouseup', direction });
+  }
+
+  onMousedown(direction: Direction): void {
+    this.directionEventsSubject.next({ type: 'mousedown', direction });
+  }
+
+  private removeDirection(direction: Direction): void {
+    this.direction = this.direction.filter((d) => d !== direction);
+    this.stopMoving();
   }
 
   private getDirectionFromKey(key: string): Direction {
@@ -147,11 +137,15 @@ export class AppComponent implements OnInit {
         },
         (_error) => {},
         () => {
-          if (this.direction.length === 0) {
-            this.store.dispatch(stopMoving());
-          }
           this.walkingSubscription = undefined;
+          this.stopMoving();
         }
       );
+  }
+
+  private stopMoving(): void {
+    if (!this.walkingSubscription && this.direction.length === 0) {
+      this.store.dispatch(stopMoving());
+    }
   }
 }

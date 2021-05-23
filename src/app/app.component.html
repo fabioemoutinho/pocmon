@@ -1,4 +1,4 @@
-<ng-container *ngIf="keyEvents$ | async"></ng-container>
+<ng-container *ngIf="directionEvents$ | async"></ng-container>
 <div id="gameboy-wrapper">
   <div id="gameboy">
     <div id="screen-wrapper">
@@ -7,7 +7,54 @@
       </div>
     </div>
     <div id="controls">
-      <button (click)="pokedex()">Pokedex</button>
+      <div class="row">
+        <div id="arrows">
+          <div></div>
+          <button
+            id="up"
+            class="arrow"
+            (mousedown)="onMousedown('UP')"
+            (mouseup)="onMouseup('UP')"
+            (mouseleave)="onMouseup('UP')"
+            draggable="false"
+          ></button>
+          <div></div>
+          <button
+            id="left"
+            class="arrow"
+            (mousedown)="onMousedown('LEFT')"
+            (mouseup)="onMouseup('LEFT')"
+            (mouseleave)="onMouseup('LEFT')"
+            draggable="false"
+          ></button>
+          <div id="arrow-center"></div>
+          <button
+            id="right"
+            class="arrow"
+            (mousedown)="onMousedown('RIGHT')"
+            (mouseup)="onMouseup('RIGHT')"
+            (mouseleave)="onMouseup('RIGHT')"
+            draggable="false"
+          ></button>
+          <div></div>
+          <button
+            id="down"
+            class="arrow"
+            (mousedown)="onMousedown('DOWN')"
+            (mouseup)="onMouseup('DOWN')"
+            (mouseleave)="onMouseup('DOWN')"
+            draggable="false"
+          ></button>
+          <div></div>
+        </div>
+        <div id="ab">
+          <button id="a" class="circle"></button>
+          <button id="b" class="circle"></button>
+        </div>
+      </div>
+      <div id="startselect">
+        <button class="default" (click)="pokedex()">Pokedex</button>
+      </div>
     </div>
   </div>
 </div>

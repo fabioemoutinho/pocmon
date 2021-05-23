@@ -30,9 +30,109 @@
 
     #controls {
       margin: 20px;
+      width: 85%;
+      --SIZE: calc(var(--SCREEN-SIZE) * 0.12);
 
-      #arrows {
-        .arrow {
+      .row {
+        display: flex;
+        align-items: center;
+
+        #arrows {
+          display: grid;
+          grid-template-columns: repeat(3, var(--SIZE));
+
+          #arrow-center {
+            width: var(--SIZE);
+            height: var(--SIZE);
+            background-color: #444;
+
+            &:before {
+              content: "";
+              width: var(--SIZE);
+              height: var(--SIZE);
+              background-color: #353535;
+              position: absolute;
+              border-radius: 100%;
+            }
+          }
+
+          .arrow {
+            width: var(--SIZE);
+            height: var(--SIZE);
+            background-color: #444;
+            margin: 0;
+
+            &:hover {
+              cursor: pointer;
+            }
+
+            &#up {
+              border-radius: 5px 5px 0 0;
+
+              &:before {
+                content: "";
+                position: absolute;
+                top: -10px;
+                left: 0;
+                right: 0;
+                width: 0;
+                height: 0;
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
+                border-bottom: 7px solid #dedede;
+                margin: 0 auto;
+              }
+            }
+            &#down {
+              border-radius: 0 0 5px 5px;
+
+              &:before {
+                content: "";
+                position: absolute;
+                bottom: -10px;
+                left: 0;
+                right: 0;
+                width: 0;
+                height: 0;
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
+                border-top: 7px solid #dedede;
+                margin: 0 auto;
+              }
+            }
+            &#left {
+              border-radius: 5px 0 0 5px;
+
+              &:before {
+                content: "";
+                position: absolute;
+                left: -10px;
+                width: 0;
+                height: 0;
+                border-top: 7px solid transparent;
+                border-bottom: 7px solid transparent;
+                border-right: 7px solid #dedede;
+                top: 50%;
+                transform: translateY(-50%);
+              }
+            }
+            &#right {
+              border-radius: 0 5px 5px 0;
+
+              &:before {
+                content: "";
+                position: absolute;
+                right: -10px;
+                width: 0;
+                height: 0;
+                border-top: 7px solid transparent;
+                border-bottom: 7px solid transparent;
+                border-left: 7px solid #dedede;
+                top: 50%;
+                transform: translateY(-50%);
+              }
+            }
+          }
         }
       }
     }
