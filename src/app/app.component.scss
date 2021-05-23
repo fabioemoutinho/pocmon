@@ -20,31 +20,46 @@
       border-radius: 13px 13px 50px 13px;
       display: flex;
       justify-content: center;
-      margin: 30px 0;
+      margin: 3em 0 4em;
       width: 85%;
 
       #screen {
-        margin: 20px 0;
+        margin: 1.8em 0;
       }
     }
 
     #controls {
-      margin: 20px;
       width: 85%;
-      --SIZE: calc(var(--SCREEN-SIZE) * 0.12);
+      --SIZE: calc(var(--SCREEN-SIZE) * 0.15);
 
       .row {
         display: flex;
         align-items: center;
+        justify-content: space-between;
 
         #arrows {
           display: grid;
           grid-template-columns: repeat(3, var(--SIZE));
+          position: relative;
+          margin-left: 0.8em;
+
+          &:before {
+            content: "";
+            width: calc(var(--SIZE) * 3.8);
+            height: calc(var(--SIZE) * 3.8);
+            background-color: #dfdfdf;
+            position: absolute;
+            border-radius: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
 
           #arrow-center {
             width: var(--SIZE);
             height: var(--SIZE);
             background-color: #444;
+            position: relative;
 
             &:before {
               content: "";
@@ -79,7 +94,7 @@
                 height: 0;
                 border-left: 7px solid transparent;
                 border-right: 7px solid transparent;
-                border-bottom: 7px solid #dedede;
+                border-bottom: 7px solid #fff;
                 margin: 0 auto;
               }
             }
@@ -96,7 +111,7 @@
                 height: 0;
                 border-left: 7px solid transparent;
                 border-right: 7px solid transparent;
-                border-top: 7px solid #dedede;
+                border-top: 7px solid #fff;
                 margin: 0 auto;
               }
             }
@@ -111,7 +126,7 @@
                 height: 0;
                 border-top: 7px solid transparent;
                 border-bottom: 7px solid transparent;
-                border-right: 7px solid #dedede;
+                border-right: 7px solid #fff;
                 top: 50%;
                 transform: translateY(-50%);
               }
@@ -127,13 +142,35 @@
                 height: 0;
                 border-top: 7px solid transparent;
                 border-bottom: 7px solid transparent;
-                border-left: 7px solid #dedede;
+                border-left: 7px solid #fff;
                 top: 50%;
                 transform: translateY(-50%);
               }
             }
           }
         }
+
+        #ab {
+          background-color: #dfdfdf;
+          border-radius: 2em;
+          padding: 0.5em;
+          transform: rotate(-25deg);
+
+          button {
+            background: #a93671;
+            border-radius: 100%;
+            height: calc(var(--SIZE) * 1.5);
+            width: calc(var(--SIZE) * 1.5);
+
+            &#b {
+              margin-left: 2em;
+            }
+          }
+        }
+      }
+
+      #startselect {
+        margin-top: 2em;
       }
     }
   }

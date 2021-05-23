@@ -35,28 +35,31 @@ button {
 button {
   background: none;
   border: none;
-  margin-left: 20px;
   position: relative;
 
   &:hover {
     cursor: pointer;
   }
 
-  &.default:hover {
-    &::before {
-      content: "\25B7";
-      position: absolute;
-      left: -10px;
-      top: -1px;
-    }
-  }
+  &.default {
+    margin-left: 20px;
 
-  &.default.selected {
-    &::before {
-      content: "\25B6";
-      position: absolute;
-      left: -10px;
-      top: -1px;
+    &:hover {
+      &::before {
+        content: "\25B7";
+        position: absolute;
+        left: -10px;
+        top: -1px;
+      }
+    }
+
+    &.selected {
+      &::before {
+        content: "\25B6";
+        position: absolute;
+        left: -10px;
+        top: -1px;
+      }
     }
   }
 }
