@@ -36,3 +36,5 @@ export const resetStepsToBattleSuccess = createAction(
   '[Map] Reset Steps to Battle Success',
   props<{ steps: number }>()
 );
+
+export const stopMoving = createAction('[Map] Stop Moving');

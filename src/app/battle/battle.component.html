@@ -10,7 +10,7 @@
   <ng-container>
     <p>Wild {{pokemon.name | uppercase}} appeared!</p>
     <p>
-      <button (click)="run()">RUN</button>
+      <button class="default" (click)="run()">RUN</button>
     </p>
   </ng-container>
   <ng-container *ngIf="counter$(pokemon.captureRate) | async as counter"></ng-container>
