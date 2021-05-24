@@ -60,12 +60,13 @@
           <div></div>
         </div>
         <div id="ab">
-          <button id="a"></button>
-          <button id="b"></button>
+          <button id="b" (click)="b()"></button>
+          <button id="a" (click)="a()"></button>
         </div>
       </div>
       <div id="startselect">
-        <button class="default" (click)="pokedex()">Pokedex</button>
+        <button id="select" (click)="select()"></button>
+        <button id="start" (click)="start()"></button>
       </div>
     </div>
   </div>

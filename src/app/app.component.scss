@@ -161,16 +161,81 @@
             border-radius: 100%;
             height: calc(var(--SIZE) * 1.5);
             width: calc(var(--SIZE) * 1.5);
+            color: #283593;
+
+            &:hover::after {
+              cursor: default;
+              pointer-events: none;
+            }
+
+            &::after {
+              position: absolute;
+              height: 1em;
+              bottom: -2em;
+              left: 0;
+              width: 100%;
+            }
+
+            &#a {
+              margin-left: 2em;
+              position: relative;
+
+              &::after {
+                content: "A";
+              }
+            }
 
             &#b {
-              margin-left: 2em;
+              &::after {
+                content: "B";
+              }
             }
           }
         }
       }
 
       #startselect {
-        margin-top: 2em;
+        margin-top: 3em;
+        text-align: center;
+
+        button {
+          transform: rotate(-25deg);
+          width: calc(var(--SIZE) * 1.5);
+          background: #999;
+          color: #283593;
+          height: 1em;
+          border-radius: 2em;
+          font-size: 0.6em;
+          position: relative;
+          box-shadow: 0 0 0 0.5em #dfdfdf;
+
+          &:hover::after {
+            cursor: default;
+            pointer-events: none;
+          }
+
+          &::after {
+            position: absolute;
+            height: 1em;
+            bottom: -1.8em;
+            left: 0;
+            width: 100%;
+          }
+
+          &#start {
+            margin-left: 2em;
+
+            &::after {
+              content: "START";
+            }
+          }
+
+          &#select {
+            &::after {
+              content: "SELECT";
+            }
+          }
+        }
       }
     }
   }
