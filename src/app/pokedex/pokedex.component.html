@@ -1,4 +1,3 @@
-<button class="default" (click)="map()">Map</button>
 <div *ngIf="pokemon$ | async as pokemon" class="pokedex-container">
   <ul>
     <li *ngFor="let p of pokemon; let i = index">

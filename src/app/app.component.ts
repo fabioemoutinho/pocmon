@@ -73,8 +73,16 @@ export class AppComponent implements OnInit {
     this.router.navigate(['map']);
   }
 
-  pokedex(): void {
+  a(): void {}
+
+  b(): void {}
+
+  start(): void {
     this.router.navigate(['pokedex']);
+  }
+
+  select(): void {
+    this.router.navigate(['map']);
   }
 
   onMouseup(direction: Direction): void {
